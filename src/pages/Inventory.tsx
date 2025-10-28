@@ -6,8 +6,8 @@ import { Label } from '../components/ui/label';
 import { Badge } from '../components/ui/badge';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '../components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../components/ui/table';
-import { Plus, Search, Edit, AlertTriangle, Package } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
+import { Plus, Search, Edit, AlertTriangle, Package, Grid3x3, List } from 'lucide-react';
 import { toast } from 'sonner@2.0.3';
 
 interface Medicine {
@@ -19,17 +19,18 @@ interface Medicine {
   price: number;
   expiry: string;
   status: 'in-stock' | 'low-stock' | 'expiring-soon' | 'out-of-stock';
+  image?: string;
 }
 
 const mockMedicines: Medicine[] = [
-  { id: 'MED-001', name: 'Paracetamol 500mg', category: 'Pain Relief', company: 'PharmaCorp', stock: 450, price: 2.50, expiry: '2026-06-15', status: 'in-stock' },
-  { id: 'MED-002', name: 'Amoxicillin 250mg', category: 'Antibiotics', company: 'MediSupply', stock: 85, price: 5.75, expiry: '2025-12-20', status: 'low-stock' },
-  { id: 'MED-003', name: 'Ibuprofen 400mg', category: 'Pain Relief', company: 'Global Pharma', stock: 320, price: 3.20, expiry: '2026-03-10', status: 'in-stock' },
-  { id: 'MED-004', name: 'Omeprazole 20mg', category: 'Digestive', company: 'MedTech', stock: 15, price: 4.50, expiry: '2025-11-05', status: 'expiring-soon' },
-  { id: 'MED-005', name: 'Metformin 500mg', category: 'Diabetes', company: 'PharmaCorp', stock: 0, price: 6.80, expiry: '2026-01-30', status: 'out-of-stock' },
-  { id: 'MED-006', name: 'Aspirin 75mg', category: 'Cardiovascular', company: 'Global Pharma', stock: 520, price: 1.90, expiry: '2026-08-12', status: 'in-stock' },
-  { id: 'MED-007', name: 'Ciprofloxacin 500mg', category: 'Antibiotics', company: 'MediSupply', stock: 68, price: 7.25, expiry: '2025-11-15', status: 'low-stock' },
-  { id: 'MED-008', name: 'Vitamin D3 1000IU', category: 'Vitamins', company: 'MedTech', stock: 280, price: 8.50, expiry: '2026-09-25', status: 'in-stock' },
+  { id: 'MED-001', name: 'Paracetamol 500mg', category: 'Pain Relief', company: 'PharmaCorp', stock: 450, price: 2.50, expiry: '2026-06-15', status: 'in-stock', image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&h=300&fit=crop' },
+  { id: 'MED-002', name: 'Amoxicillin 250mg', category: 'Antibiotics', company: 'MediSupply', stock: 85, price: 5.75, expiry: '2025-12-20', status: 'low-stock', image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=400&h=300&fit=crop' },
+  { id: 'MED-003', name: 'Ibuprofen 400mg', category: 'Pain Relief', company: 'Global Pharma', stock: 320, price: 3.20, expiry: '2026-03-10', status: 'in-stock', image: 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=400&h=300&fit=crop' },
+  { id: 'MED-004', name: 'Omeprazole 20mg', category: 'Digestive', company: 'MedTech', stock: 15, price: 4.50, expiry: '2025-11-05', status: 'expiring-soon', image: 'https://images.unsplash.com/photo-1603398938378-e54eab446dde?w=400&h=300&fit=crop' },
+  { id: 'MED-005', name: 'Metformin 500mg', category: 'Diabetes', company: 'PharmaCorp', stock: 0, price: 6.80, expiry: '2026-01-30', status: 'out-of-stock', image: 'https://images.unsplash.com/photo-1550572017-4340e7b60d3f?w=400&h=300&fit=crop' },
+  { id: 'MED-006', name: 'Aspirin 75mg', category: 'Cardiovascular', company: 'Global Pharma', stock: 520, price: 1.90, expiry: '2026-08-12', status: 'in-stock', image: 'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?w=400&h=300&fit=crop' },
+  { id: 'MED-007', name: 'Ciprofloxacin 500mg', category: 'Antibiotics', company: 'MediSupply', stock: 68, price: 7.25, expiry: '2025-11-15', status: 'low-stock', image: 'https://images.unsplash.com/photo-1585435557343-3b092031a831?w=400&h=300&fit=crop' },
+  { id: 'MED-008', name: 'Vitamin D3 1000IU', category: 'Vitamins', company: 'MedTech', stock: 280, price: 8.50, expiry: '2026-09-25', status: 'in-stock', image: 'https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?w=400&h=300&fit=crop' },
 ];
 
 export default function Inventory() {
@@ -37,6 +38,7 @@ export default function Inventory() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterCategory, setFilterCategory] = useState<string>('all');
   const [filterStatus, setFilterStatus] = useState<string>('all');
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingMedicine, setEditingMedicine] = useState<Medicine | null>(null);
   const [formData, setFormData] = useState({
@@ -46,6 +48,7 @@ export default function Inventory() {
     stock: '',
     price: '',
     expiry: '',
+    image: '',
   });
 
   const filteredMedicines = medicines.filter(medicine => {
@@ -68,10 +71,11 @@ export default function Inventory() {
         stock: medicine.stock.toString(),
         price: medicine.price.toString(),
         expiry: medicine.expiry,
+        image: medicine.image || '',
       });
     } else {
       setEditingMedicine(null);
-      setFormData({ name: '', category: '', company: '', stock: '', price: '', expiry: '' });
+      setFormData({ name: '', category: '', company: '', stock: '', price: '', expiry: '', image: '' });
     }
     setDialogOpen(true);
   };
@@ -101,7 +105,8 @@ export default function Inventory() {
           ...formData,
           stock,
           price: parseFloat(formData.price),
-          status
+          status,
+          image: formData.image || m.image,
         } : m
       ));
       toast.success('Medicine updated successfully!');
@@ -112,6 +117,7 @@ export default function Inventory() {
         stock,
         price: parseFloat(formData.price),
         status,
+        image: formData.image || 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=400&h=300&fit=crop',
       };
       setMedicines([...medicines, newMedicine]);
       toast.success('Medicine added successfully!');
@@ -242,56 +248,170 @@ export default function Inventory() {
                 <SelectItem value="out-of-stock">Out of Stock</SelectItem>
               </SelectContent>
             </Select>
+            <div className="flex gap-2">
+              <Button
+                variant={viewMode === 'grid' ? 'default' : 'outline'}
+                size="icon"
+                onClick={() => setViewMode('grid')}
+              >
+                <Grid3x3 className="w-4 h-4" />
+              </Button>
+              <Button
+                variant={viewMode === 'list' ? 'default' : 'outline'}
+                size="icon"
+                onClick={() => setViewMode('list')}
+              >
+                <List className="w-4 h-4" />
+              </Button>
+            </div>
           </div>
 
-          <div className="border rounded-lg overflow-hidden">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>ID</TableHead>
-                  <TableHead>Medicine Name</TableHead>
-                  <TableHead>Category</TableHead>
-                  <TableHead>Company</TableHead>
-                  <TableHead>Stock</TableHead>
-                  <TableHead>Price</TableHead>
-                  <TableHead>Expiry Date</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredMedicines.map((medicine) => (
-                  <TableRow key={medicine.id}>
-                    <TableCell>{medicine.id}</TableCell>
-                    <TableCell>{medicine.name}</TableCell>
-                    <TableCell>{medicine.category}</TableCell>
-                    <TableCell>{medicine.company}</TableCell>
-                    <TableCell>
-                      <span className={medicine.stock < 100 ? 'text-orange-600' : ''}>
-                        {medicine.stock}
-                      </span>
-                    </TableCell>
-                    <TableCell>${medicine.price.toFixed(2)}</TableCell>
-                    <TableCell>{medicine.expiry}</TableCell>
-                    <TableCell>
-                      <Badge className={getStatusBadge(medicine.status)}>
-                        {medicine.status.replace('-', ' ')}
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="text-right">
+          {/* Grid View */}
+          {viewMode === 'grid' ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {filteredMedicines.map((medicine) => (
+                <Card key={medicine.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+                  <div className="aspect-square relative bg-gray-100">
+                    <img
+                      src={medicine.image || 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=400&h=300&fit=crop'}
+                      alt={medicine.name}
+                      className="w-full h-full object-cover"
+                    />
+                    <Badge className={`absolute top-2 right-2 ${getStatusBadge(medicine.status)}`}>
+                      {medicine.status.replace('-', ' ')}
+                    </Badge>
+                  </div>
+                  <CardContent className="p-4">
+                    <div className="space-y-2">
+                      <div>
+                        <h3 className="text-base text-gray-900 line-clamp-2">{medicine.name}</h3>
+                        <p className="text-sm text-gray-500">{medicine.company}</p>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <Badge variant="outline" className="text-xs">{medicine.category}</Badge>
+                        <span className="text-gray-900 font-semibold">LKR {medicine.price.toFixed(2)}</span>
+                      </div>
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-gray-600">Stock:</span>
+                        <span className={`${medicine.stock < 100 ? 'text-orange-600' : 'text-gray-900'}`}>
+                          {medicine.stock} units
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-gray-600">Expiry:</span>
+                        <span className="text-gray-900">{medicine.expiry}</span>
+                      </div>
                       <Button
-                        variant="ghost"
-                        size="icon"
+                        variant="outline"
+                        size="sm"
+                        className="w-full mt-2"
                         onClick={() => handleOpenDialog(medicine)}
                       >
-                        <Edit className="w-4 h-4" />
+                        <Edit className="w-3 h-3 mr-2" />
+                        Edit
                       </Button>
-                    </TableCell>
-                  </TableRow>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            /* List View - Categories */
+            <Tabs defaultValue="all" className="w-full">
+              <TabsList className="grid w-full grid-cols-3 lg:grid-cols-7 mb-4">
+                <TabsTrigger value="all">All</TabsTrigger>
+                {categories.map(cat => (
+                  <TabsTrigger key={cat} value={cat}>{cat}</TabsTrigger>
                 ))}
-              </TableBody>
-            </Table>
-          </div>
+              </TabsList>
+              
+              <TabsContent value="all">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {filteredMedicines.map((medicine) => (
+                    <Card key={medicine.id} className="overflow-hidden hover:shadow-md transition-shadow">
+                      <div className="flex">
+                        <div className="w-24 h-24 flex-shrink-0 bg-gray-100">
+                          <img
+                            src={medicine.image || 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=400&h=300&fit=crop'}
+                            alt={medicine.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <CardContent className="flex-1 p-3">
+                          <div className="space-y-1">
+                            <h4 className="text-sm text-gray-900 line-clamp-1">{medicine.name}</h4>
+                            <p className="text-xs text-gray-500">{medicine.company}</p>
+                            <div className="flex items-center justify-between">
+                              <Badge className={`text-xs ${getStatusBadge(medicine.status)}`}>
+                                {medicine.status.replace('-', ' ')}
+                              </Badge>
+                              <span className="text-sm text-gray-900 font-semibold">LKR {medicine.price.toFixed(2)}</span>
+                            </div>
+                            <div className="flex items-center justify-between text-xs text-gray-600">
+                              <span>Stock: {medicine.stock}</span>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="h-6 px-2"
+                                onClick={() => handleOpenDialog(medicine)}
+                              >
+                                <Edit className="w-3 h-3" />
+                              </Button>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </TabsContent>
+              
+              {categories.map(category => (
+                <TabsContent key={category} value={category}>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {filteredMedicines
+                      .filter(m => m.category === category)
+                      .map((medicine) => (
+                        <Card key={medicine.id} className="overflow-hidden hover:shadow-md transition-shadow">
+                          <div className="flex">
+                            <div className="w-24 h-24 flex-shrink-0 bg-gray-100">
+                              <img
+                                src={medicine.image || 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=400&h=300&fit=crop'}
+                                alt={medicine.name}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                            <CardContent className="flex-1 p-3">
+                              <div className="space-y-1">
+                                <h4 className="text-sm text-gray-900 line-clamp-1">{medicine.name}</h4>
+                                <p className="text-xs text-gray-500">{medicine.company}</p>
+                                <div className="flex items-center justify-between">
+                                  <Badge className={`text-xs ${getStatusBadge(medicine.status)}`}>
+                                    {medicine.status.replace('-', ' ')}
+                                  </Badge>
+                                  <span className="text-sm text-gray-900 font-semibold">LKR {medicine.price.toFixed(2)}</span>
+                                </div>
+                                <div className="flex items-center justify-between text-xs text-gray-600">
+                                  <span>Stock: {medicine.stock}</span>
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="h-6 px-2"
+                                    onClick={() => handleOpenDialog(medicine)}
+                                  >
+                                    <Edit className="w-3 h-3" />
+                                  </Button>
+                                </div>
+                              </div>
+                            </CardContent>
+                          </div>
+                        </Card>
+                      ))}
+                  </div>
+                </TabsContent>
+              ))}
+            </Tabs>
+          )}
         </CardContent>
       </Card>
 
@@ -352,7 +472,7 @@ export default function Inventory() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="price">Price ($)</Label>
+                  <Label htmlFor="price">Price (LKR)</Label>
                   <Input
                     id="price"
                     type="number"
@@ -372,6 +492,17 @@ export default function Inventory() {
                   onChange={(e) => setFormData({ ...formData, expiry: e.target.value })}
                   required
                 />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="image">Medicine Image URL</Label>
+                <Input
+                  id="image"
+                  type="url"
+                  placeholder="https://example.com/image.jpg"
+                  value={formData.image}
+                  onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                />
+                <p className="text-xs text-gray-500">Optional: Enter an image URL for the medicine</p>
               </div>
             </div>
             <DialogFooter>

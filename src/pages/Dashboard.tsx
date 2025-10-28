@@ -55,8 +55,8 @@ export default function Dashboard() {
         { title: 'Active Pharmacies', value: '87', icon: Store, color: 'bg-emerald-500', change: '+5%' },
         { title: 'Low Stock Items', value: '23', icon: AlertTriangle, color: 'bg-orange-500', change: '-3%' },
         { title: "Today's Orders", value: '45', icon: ShoppingCart, color: 'bg-purple-500', change: '+8%' },
-        { title: 'Monthly Sales', value: '$67,890', icon: TrendingUp, color: 'bg-green-500', change: '+15%' },
-        { title: 'Total Revenue', value: '$456,789', icon: DollarSign, color: 'bg-blue-600', change: '+22%' },
+        { title: 'Monthly Sales', value: 'LKR 6,789,000', icon: TrendingUp, color: 'bg-green-500', change: '+15%' },
+        { title: 'Total Revenue', value: 'LKR 45,678,900', icon: DollarSign, color: 'bg-blue-600', change: '+22%' },
         { title: 'Active Suppliers', value: '34', icon: Users, color: 'bg-indigo-500', change: '+2%' },
         { title: 'Pending Orders', value: '12', icon: FileText, color: 'bg-red-500', change: '-5%' },
       ];
@@ -65,28 +65,28 @@ export default function Dashboard() {
         { title: 'Purchase Orders', value: '156', icon: ShoppingCart, color: 'bg-blue-500', change: '+10%' },
         { title: 'Active Suppliers', value: '34', icon: Users, color: 'bg-emerald-500', change: '+2%' },
         { title: 'Pending Approvals', value: '8', icon: AlertTriangle, color: 'bg-orange-500', change: '+3%' },
-        { title: 'Monthly Purchases', value: '$48,000', icon: DollarSign, color: 'bg-purple-500', change: '+12%' },
+        { title: 'Monthly Purchases', value: 'LKR 4,800,000', icon: DollarSign, color: 'bg-purple-500', change: '+12%' },
       ];
     } else if (user?.role === 'sales') {
       return [
-        { title: 'Daily Sales', value: '$5,678', icon: TrendingUp, color: 'bg-green-500', change: '+15%' },
+        { title: 'Daily Sales', value: 'LKR 567,800', icon: TrendingUp, color: 'bg-green-500', change: '+15%' },
         { title: "Today's Orders", value: '45', icon: ShoppingCart, color: 'bg-blue-500', change: '+8%' },
         { title: 'Active Pharmacies', value: '87', icon: Store, color: 'bg-emerald-500', change: '+5%' },
-        { title: 'Pending Payments', value: '$12,340', icon: DollarSign, color: 'bg-orange-500', change: '-2%' },
+        { title: 'Pending Payments', value: 'LKR 1,234,000', icon: DollarSign, color: 'bg-orange-500', change: '-2%' },
       ];
     } else if (user?.role === 'inventory') {
       return [
         { title: 'Total Medicines', value: '1,234', icon: Package, color: 'bg-blue-500', change: '+12%' },
         { title: 'Low Stock Items', value: '23', icon: AlertTriangle, color: 'bg-red-500', change: '+5%' },
         { title: 'Expiring Soon', value: '15', icon: AlertTriangle, color: 'bg-orange-500', change: '+2%' },
-        { title: 'Stock Value', value: '$234,567', icon: DollarSign, color: 'bg-emerald-500', change: '+8%' },
+        { title: 'Stock Value', value: 'LKR 23,456,700', icon: DollarSign, color: 'bg-emerald-500', change: '+8%' },
       ];
     } else {
       return [
         { title: 'My Orders', value: '28', icon: ShoppingCart, color: 'bg-blue-500', change: '+6%' },
         { title: 'Pending Orders', value: '3', icon: AlertTriangle, color: 'bg-orange-500', change: '0%' },
-        { title: 'Total Spent', value: '$15,678', icon: DollarSign, color: 'bg-emerald-500', change: '+12%' },
-        { title: 'Available Credit', value: '$8,500', icon: TrendingUp, color: 'bg-purple-500', change: '+5%' },
+        { title: 'Total Spent', value: 'LKR 1,567,800', icon: DollarSign, color: 'bg-emerald-500', change: '+12%' },
+        { title: 'Available Credit', value: 'LKR 850,000', icon: TrendingUp, color: 'bg-purple-500', change: '+5%' },
       ];
     }
   };
@@ -217,7 +217,7 @@ export default function Dashboard() {
                       <p className="text-sm text-gray-600">{order.pharmacy}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-gray-900">${order.amount.toLocaleString()}</p>
+                      <p className="text-gray-900 font-semibold">LKR {order.amount.toLocaleString()}</p>
                       <span className={`inline-block text-xs px-2 py-1 rounded mt-1 ${
                         order.status === 'Completed' ? 'bg-green-100 text-green-700' :
                         order.status === 'Pending' ? 'bg-yellow-100 text-yellow-700' :
