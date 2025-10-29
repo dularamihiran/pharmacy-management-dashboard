@@ -111,7 +111,7 @@ export default function Payments() {
               </div>
               <div>
                 <p className="text-sm text-gray-600">Total Collected</p>
-                <p className="text-gray-900">${payments.filter(p => p.status === 'completed').reduce((acc, p) => acc + p.amount, 0).toLocaleString()}</p>
+                <p className="text-gray-900">LKR {payments.filter(p => p.status === 'completed').reduce((acc, p) => acc + p.amount, 0).toLocaleString()}</p>
               </div>
             </div>
           </CardContent>
@@ -124,7 +124,7 @@ export default function Payments() {
               </div>
               <div>
                 <p className="text-sm text-gray-600">Pending</p>
-                <p className="text-gray-900">${payments.filter(p => p.status === 'pending').reduce((acc, p) => acc + p.amount, 0).toLocaleString()}</p>
+                <p className="text-gray-900">LKR {payments.filter(p => p.status === 'pending').reduce((acc, p) => acc + p.amount, 0).toLocaleString()}</p>
               </div>
             </div>
           </CardContent>
@@ -192,7 +192,7 @@ export default function Payments() {
                     <TableCell className="text-blue-600">{payment.invoiceId}</TableCell>
                     <TableCell>{payment.pharmacy}</TableCell>
                     <TableCell>{payment.date}</TableCell>
-                    <TableCell>${payment.amount.toLocaleString()}</TableCell>
+                    <TableCell>LKR {payment.amount.toLocaleString()}</TableCell>
                     <TableCell className="capitalize">{payment.method.replace('-', ' ')}</TableCell>
                     <TableCell>
                       <Badge className={getStatusBadge(payment.status)}>
@@ -245,7 +245,7 @@ export default function Payments() {
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="amount">Amount ($)</Label>
+                <Label htmlFor="amount">Amount (LKR)</Label>
                 <Input
                   id="amount"
                   type="number"

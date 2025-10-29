@@ -138,7 +138,7 @@ export default function SalesReturns() {
               </div>
               <div>
                 <p className="text-sm text-gray-600">Total Amount</p>
-                <p className="text-gray-900">${returns.reduce((acc, r) => acc + r.amount, 0).toLocaleString()}</p>
+                <p className="text-gray-900">LKR {returns.reduce((acc, r) => acc + r.amount, 0).toLocaleString()}</p>
               </div>
             </div>
           </CardContent>
@@ -195,7 +195,7 @@ export default function SalesReturns() {
                     <TableCell>{ret.pharmacy}</TableCell>
                     <TableCell>{ret.date}</TableCell>
                     <TableCell>{ret.items}</TableCell>
-                    <TableCell>${ret.amount.toLocaleString()}</TableCell>
+                    <TableCell>LKR {ret.amount.toLocaleString()}</TableCell>
                     <TableCell>{ret.reason}</TableCell>
                     <TableCell>
                       <Badge className={getStatusBadge(ret.status)}>
@@ -257,7 +257,7 @@ export default function SalesReturns() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="amount">Return Amount ($)</Label>
+                <Label htmlFor="amount">Return Amount (LKR)</Label>
                 <Input
                   id="amount"
                   type="number"

@@ -161,7 +161,7 @@ export default function Pharmacies() {
               </div>
               <div>
                 <p className="text-sm text-gray-600">Total Revenue</p>
-                <p className="text-gray-900">${pharmacies.reduce((acc, p) => acc + p.totalSpent, 0).toLocaleString()}</p>
+                <p className="text-gray-900">LKR {pharmacies.reduce((acc, p) => acc + p.totalSpent, 0).toLocaleString()}</p>
               </div>
             </div>
           </CardContent>
@@ -214,7 +214,7 @@ export default function Pharmacies() {
                     <TableCell>{pharmacy.contact}</TableCell>
                     <TableCell>{pharmacy.email}</TableCell>
                     <TableCell>{pharmacy.totalOrders}</TableCell>
-                    <TableCell>${pharmacy.totalSpent.toLocaleString()}</TableCell>
+                    <TableCell>LKR {pharmacy.totalSpent.toLocaleString()}</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <Switch
