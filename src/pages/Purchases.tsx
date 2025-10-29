@@ -165,7 +165,7 @@ export default function Purchases() {
               </div>
               <div>
                 <p className="text-sm text-gray-600">Total Value</p>
-                <p className="text-gray-900">${purchases.reduce((acc, p) => acc + p.total, 0).toLocaleString()}</p>
+                <p className="text-gray-900">LKR {purchases.reduce((acc, p) => acc + p.total, 0).toLocaleString()}</p>
               </div>
             </div>
           </CardContent>
@@ -223,7 +223,7 @@ export default function Purchases() {
                     <TableCell>{purchase.supplier}</TableCell>
                     <TableCell>{purchase.date}</TableCell>
                     <TableCell>{purchase.items}</TableCell>
-                    <TableCell>${purchase.total.toLocaleString()}</TableCell>
+                    <TableCell>LKR {purchase.total.toLocaleString()}</TableCell>
                     <TableCell>
                       <Badge className={getStatusBadge(purchase.status)}>
                         <span className="flex items-center gap-1">
@@ -307,7 +307,7 @@ export default function Purchases() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="total">Total Amount ($)</Label>
+                <Label htmlFor="total">Total Amount (LKR)</Label>
                 <Input
                   id="total"
                   type="number"

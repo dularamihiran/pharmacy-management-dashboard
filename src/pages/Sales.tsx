@@ -113,7 +113,7 @@ export default function Sales() {
               </div>
               <div>
                 <p className="text-sm text-gray-600">Total Revenue</p>
-                <p className="text-gray-900">${sales.reduce((acc, s) => acc + s.total, 0).toLocaleString()}</p>
+                <p className="text-gray-900">LKR {sales.reduce((acc, s) => acc + s.total, 0).toLocaleString()}</p>
               </div>
             </div>
           </CardContent>
@@ -195,7 +195,7 @@ export default function Sales() {
                     <TableCell>{sale.pharmacy}</TableCell>
                     <TableCell>{sale.date}</TableCell>
                     <TableCell>{sale.items}</TableCell>
-                    <TableCell>${sale.total.toLocaleString()}</TableCell>
+                    <TableCell>LKR {sale.total.toLocaleString()}</TableCell>
                     <TableCell className="capitalize">{sale.method.replace('-', ' ')}</TableCell>
                     <TableCell>
                       <Badge className={getPaymentBadge(sale.payment)}>
@@ -253,7 +253,7 @@ export default function Sales() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="total">Total Amount ($)</Label>
+                <Label htmlFor="total">Total Amount (LKR)</Label>
                 <Input
                   id="total"
                   type="number"

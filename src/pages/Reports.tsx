@@ -105,7 +105,7 @@ export default function Reports() {
               </div>
               <div>
                 <p className="text-sm text-gray-600">Total Sales</p>
-                <p className="text-gray-900">$328,000</p>
+                <p className="text-gray-900">LKR 328,000</p>
                 <p className="text-xs text-green-600 mt-1">+15.3%</p>
               </div>
             </div>
@@ -119,7 +119,7 @@ export default function Reports() {
               </div>
               <div>
                 <p className="text-sm text-gray-600">Total Purchases</p>
-                <p className="text-gray-900">$235,000</p>
+                <p className="text-gray-900">LKR 235,000</p>
                 <p className="text-xs text-green-600 mt-1">+12.5%</p>
               </div>
             </div>
@@ -133,7 +133,7 @@ export default function Reports() {
               </div>
               <div>
                 <p className="text-sm text-gray-600">Net Profit</p>
-                <p className="text-gray-900">$93,000</p>
+                <p className="text-gray-900">LKR 93,000</p>
                 <p className="text-xs text-green-600 mt-1">+18.2%</p>
               </div>
             </div>
@@ -212,31 +212,31 @@ export default function Reports() {
                 <p className="text-gray-900">1,234 Orders</p>
               </div>
               <div>
-                <p className="text-sm text-gray-600 mb-1">Average Order Value</p>
-                <p className="text-gray-900">$265.69</p>
+                <p className="text-sm text-gray-600">Average Order Value</p>
+                <p className="text-gray-900">LKR 265.69</p>
               </div>
             </div>
 
             <div className="space-y-3">
               <div className="flex justify-between items-center py-2 border-b">
                 <span className="text-gray-600">Gross Sales Revenue</span>
-                <span className="text-gray-900">$328,000</span>
+                <span className="text-gray-900">LKR 328,000</span>
               </div>
               <div className="flex justify-between items-center py-2 border-b">
                 <span className="text-gray-600">Total Purchase Cost</span>
-                <span className="text-gray-900">$235,000</span>
+                <span className="text-gray-900">LKR 235,000</span>
               </div>
               <div className="flex justify-between items-center py-2 border-b">
                 <span className="text-gray-600">Operating Expenses</span>
-                <span className="text-gray-900">$12,000</span>
+                <span className="text-gray-900">LKR 12,000</span>
               </div>
               <div className="flex justify-between items-center py-2 border-b">
                 <span className="text-gray-600">Returns & Refunds</span>
-                <span className="text-red-600">-$8,000</span>
+                <span className="text-red-600">-LKR 8,000</span>
               </div>
               <div className="flex justify-between items-center py-3 border-t-2">
                 <span className="text-gray-900">Net Profit</span>
-                <span className="text-green-600 text-lg">$93,000</span>
+                <span className="text-green-600 text-lg">LKR 93,000</span>
               </div>
             </div>
           </div>
